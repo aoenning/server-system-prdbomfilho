@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon src/server.js"
+    "start": "nodemon src/server.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -17,6 +17,7 @@
     "middlewares": "^0.1.1",
     "mongoose": "^6.0.9",
     "nodemon": "^2.0.13",
+    "npm": "^8.0.0",
     "sucrase": "^3.20.1",
     "yup": "^0.32.9"
   }

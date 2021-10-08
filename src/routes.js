@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
+import VendedorController from './app/controllers/VendedorController';
+import ClienteController from './app/controllers/ClienteController';
 import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
@@ -45,35 +47,35 @@ routes.put('/users', UserController.updateUser);
 
 
 
-// //Rota de vendedores.
-// //=================================================
+//Rota de vendedores.
+//=================================================
 
-// //Cadastro de vendedor.
-// routes.post('/vendedor', VendedorController.store);
+//Cadastro de vendedor.
+routes.post('/vendedor', VendedorController.store);
 
-// //Alterar dados vendedores.
-// routes.put('/vendedor/:vendedor_id', VendedorController.updateVendedor);
+//Alterar dados vendedores.
+routes.put('/vendedor/:vendedor_id', VendedorController.update);
 
-// //Deletar vendedor.
-// routes.delete('/vendedor/:vendedor_id', VendedorController.deleteVendedor);
+//Deletar vendedor.
+routes.delete('/vendedor/:vendedor_id', VendedorController.delete);
 
-// //Selecionar vendedores
-// routes.get('/vendedores', VendedorController.selectedVendedores);
-
-
+//Selecionar vendedores
+routes.get('/vendedores', VendedorController.selected);
 
 
-// //Rota de cliente.
-// //=================================================
-
-// //Cadastro de cliente.
-// routes.post('/clientes', ClienteController.store);
-
-// //Alterar dados cliente.
-// routes.put('/cliente/:cliente_id', ClienteController.updateCliente);
 
 
-// //Selecionar clientes
-// routes.get('/clientes', ClienteController.selectedClientes);
+//Rota de cliente.
+//=================================================
+
+//Cadastro de cliente.
+routes.post('/clientes', ClienteController.store);
+
+//Alterar dados cliente.
+routes.put('/cliente/:cliente_id', ClienteController.update);
+
+
+//Selecionar clientes
+routes.get('/clientes', ClienteController.selected);
 
 export default routes;

@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 import bcrypt from 'bcryptjs';
 
 
-const UserSchema = new Schema({
+const VendedorSchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -23,12 +23,6 @@ const UserSchema = new Schema({
         lowercase: true,
     },
 
-    password: {
-        type: String,
-        required: true,
-        select: false,
-    },
-
     created_at: {
         type: Date,
         default: Date.now,
@@ -41,14 +35,7 @@ const UserSchema = new Schema({
 
 });
 
-UserSchema.pre('save', async function (next) {
 
-    const hash = await bcrypt.hash(this.password, 10);
-    this.password = hash;
-
-    next();
-});
-
-export default model('User', UserSchema);
+export default model('Vendedor', VendedorSchema);
 
 

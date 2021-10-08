@@ -3,16 +3,21 @@ import * as Yup from 'yup';
 import bcrypt from 'bcryptjs';
 
 
-const UserSchema = new Schema({
-    name: {
+const ClienteSchema = new Schema({
+    nome: {
         type: String,
         required: true,
+    },
+
+    cnpj: {
+        type: String,
+        unique: true,
+        lowercase: true,
     },
 
     cpf: {
         type: String,
         unique: true,
-        required: true,
         lowercase: true,
     },
 
@@ -23,10 +28,38 @@ const UserSchema = new Schema({
         lowercase: true,
     },
 
-    password: {
+    telefone: {
         type: String,
         required: true,
-        select: false,
+    },
+
+    endereco: {
+        type: String,
+        required: true,
+
+    },
+
+    cep: {
+        type: String,
+        required: true,
+    },
+
+    cidade: {
+        type: String,
+        required: true,
+    },
+
+    estado: {
+        type: String,
+        required: true,
+    },
+
+    tipo_atividade: {
+        type: String,
+    },
+
+    status: {
+        type: String,
     },
 
     created_at: {
@@ -41,14 +74,7 @@ const UserSchema = new Schema({
 
 });
 
-UserSchema.pre('save', async function (next) {
 
-    const hash = await bcrypt.hash(this.password, 10);
-    this.password = hash;
-
-    next();
-});
-
-export default model('User', UserSchema);
+export default model('Cliente', ClienteSchema);
 
 
