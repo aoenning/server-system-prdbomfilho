@@ -3,7 +3,7 @@ import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
 import VendedorController from './app/controllers/VendedorController';
 import ClienteController from './app/controllers/ClienteController';
-// import authMiddleware from './app/middlewares/auth';
+
 
 const routes = new Router();
 
