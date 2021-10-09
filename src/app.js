@@ -1,14 +1,16 @@
 import express from 'express';
+import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import routes from './routes';
 import cors from 'cors';
 
-
+dotenv.config();
 
 class App {
     constructor() {
+        const url = 'mongodb+srv://aoenning:685712@serverprodutosbomfilho.i0dbi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
         this.server = express();
-        mongoose.connect(process.env.MONGO_URL, {
+        mongoose.connect(url, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
