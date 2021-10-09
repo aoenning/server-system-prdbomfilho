@@ -21,7 +21,7 @@ class SessionController {
             return res.status(401).json({ error: 'Senha incorreta.' })
         }
 
-        const token = jwt.sign({ id: user.id }, process.env.SECRET, {
+        const token = jwt.sign({ id: user.id }, authConfig.secret, {
             expiresIn: 86400,
         });
 
