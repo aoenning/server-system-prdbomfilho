@@ -1,9 +1,10 @@
+import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import User from '../models/User';
 import authConfig from '../../config/auth';
 import bcrypt from 'bcryptjs';
 
-
+dotenv.config();
 class SessionController {
     //===================================================================================================    
     //Seleciona token do usuario.    
@@ -21,7 +22,7 @@ class SessionController {
             return res.status(401).json({ error: 'Senha incorreta.' })
         }
 
-        const token = jwt.sign({ id: user.id }, authConfig.secret, {
+        const token = jwt.sign({ id: user.id }, process.env.SECRET, {
             expiresIn: 86400,
         });
 
