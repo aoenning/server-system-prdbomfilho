@@ -25,40 +25,35 @@ class ClienteController {
         }
 
         //Validar endereco
-        if (!req.body.endereco) {
-            return res.status(400).json({ error: "Informe o endereco" })
+        if (!req.body.endereco.logradouro) {
+            return res.status(400).json({ error: "Informe o logradouro" })
         }
 
         //Validar cep
-        if (!req.body.cep) {
+        if (!req.body.endereco.cep) {
             return res.status(400).json({ error: "Informe o cep" })
         }
 
         //Validar cidade
-        if (!req.body.cep) {
+        if (!req.body.endereco.cidade) {
             return res.status(400).json({ error: "Informe a cidade" })
         }
 
         //Validar estado
-        if (!req.body.estado) {
+        if (!req.body.endereco.estado) {
             return res.status(400).json({ error: "Informe a estado" })
         }
 
-        const { cpf, cnpj } = req.body;
+        ;
 
-        if (cpf) {
-            const clienteFisico = await Cliente.findOne({ cpf });
-            if (clienteFisico) {
+        if (req.body.documento.numero) {
+            const documento = await Cliente.findOne({ documento: { numero: req.body.documento.numero } });
+
+            if (documento) {
                 return res.status(400).json({ error: "Cliente ja cadastrado" })
             }
         }
 
-        if (cnpj) {
-            const clienteEmpresa = await Cliente.findOne({ cnpj });
-            if (clienteEmpresa) {
-                return res.status(400).json({ error: "Cliente ja cadastrado" })
-            }
-        }
 
         try {
 
