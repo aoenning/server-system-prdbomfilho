@@ -4,21 +4,10 @@ import bcrypt from 'bcryptjs';
 
 
 const ClienteSchema = new Schema({
+
     nome: {
         type: String,
         required: true,
-    },
-
-    cnpj: {
-        type: String,
-        unique: true,
-        lowercase: true,
-    },
-
-    cpf: {
-        type: String,
-        unique: true,
-        lowercase: true,
     },
 
     email: {
@@ -33,25 +22,42 @@ const ClienteSchema = new Schema({
         required: true,
     },
 
+    documento: {
+        tipo: {
+            type: String,
+            enum: ['cpf', 'cnpj'],
+            required: true,
+        },
+
+        numero: {
+            type: String,
+            required: true,
+        },
+    },
     endereco: {
-        type: String,
-        required: true,
+        logradouro: {
+            type: String,
+            required: true,
+        },
+        numero: {
+            type: String,
+            required: true,
+        },
 
-    },
+        cep: {
+            type: String,
+            required: true,
+        },
 
-    cep: {
-        type: String,
-        required: true,
-    },
+        cidade: {
+            type: String,
+            required: true,
+        },
 
-    cidade: {
-        type: String,
-        required: true,
-    },
-
-    estado: {
-        type: String,
-        required: true,
+        estado: {
+            type: String,
+            required: true,
+        },
     },
 
     tipo_atividade: {
@@ -70,7 +76,7 @@ const ClienteSchema = new Schema({
     updated_at: {
         type: Date,
         default: Date.now,
-    },
+    }
 
 });
 
