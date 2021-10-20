@@ -81,7 +81,7 @@ class ClienteController {
 
 
         try {
-            const { nome, cnpj, cpf, email, telefone, endereco, cep, cidade, estado, tipo_atividade, status } = req.body;
+            const { nome, email, telefone, endereco, cep, cidade, estado, tipo_atividade, status } = req.body;
             await Cliente.updateOne({ id }, {
                 nome,
                 email,
