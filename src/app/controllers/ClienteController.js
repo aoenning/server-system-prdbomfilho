@@ -59,7 +59,7 @@ class ClienteController {
 
         try {
 
-            const cliente = await Cliente.create(req.body.cliente);
+            const cliente = await Cliente.create(req.body);
             return res.json(cliente);
 
         } catch (error) {
