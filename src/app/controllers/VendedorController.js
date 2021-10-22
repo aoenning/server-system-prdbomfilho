@@ -9,13 +9,13 @@ class VendedorController {
 
         //Validar nome.
         if (!req.body.name) {
-            return res.status(400).json({ error: "Informe o nome do vendedor" })
+            return res.status(400).json({ message: "Informe o nome do vendedor" })
         }
 
 
         //Validar cpf
         if (!req.body.cpf) {
-            return res.status(400).json({ error: "Informe cpf do vendedor" })
+            return res.status(400).json({ message: "Informe cpf do vendedor" })
         }
 
         const { cpf } = req.body;
@@ -23,14 +23,14 @@ class VendedorController {
 
         try {
             if (await Vendedor.findOne({ cpf }))
-                return res.status(400).json({ error: "Vendedor ja cadastrado" })
+                return res.status(400).json({ message: "Vendedor ja cadastrado" })
 
             const vendedor = await Vendedor.create(req.body)
 
             return res.json(vendedor);
 
         } catch (error) {
-            return res.status(401).json({ 'Error': "Não foi possivél salvar vendedor, analise detalhada do erro: " + error });
+            return res.status(401).json({ message: error });
         }
     }
 
@@ -45,7 +45,7 @@ class VendedorController {
 
 
         if (!vendedor) {
-            return res.status(400).json({ error: "Vendedor não encontrado" });
+            return res.status(400).json({ message: "Vendedor não encontrado" });
         }
 
 
@@ -60,7 +60,7 @@ class VendedorController {
             const result = await Vendedor.findOne({ id });
             return res.json({ result });
         } catch (error) {
-            return res.status(400).json({ error: "Não foi possivél modificar cadastro vendedor " + error });
+            return res.status(400).json({ message: error });
         }
 
     }
@@ -74,14 +74,14 @@ class VendedorController {
         const vendedor = await Vendedor.find({ id: vendedor_id });
 
         if (!vendedor) {
-            return res.status(400).json({ error: "Vendedor não encontrado" });
+            return res.status(400).json({ message: "Vendedor não encontrado" });
         }
 
         try {
             await Vendedor.findByIdAndRemove(req.params.vendedor_id)
             return res.json({ msg: "Vendedor excluido com sucesso" });
         } catch (error) {
-            return res.status(400).json({ error: "Não foi possivél excluir vendedor" });
+            return res.status(400).json({ message: error });
         }
 
     }
@@ -91,7 +91,7 @@ class VendedorController {
     async selected(req, res) {
         const vendedores = await Vendedor.find();
         if (!vendedores) {
-            return res.status(401).json({ error: "Vendedores não localizados" });
+            return res.status(401).json({ message: "Vendedores não localizados" });
         }
 
         return res.json(vendedores);

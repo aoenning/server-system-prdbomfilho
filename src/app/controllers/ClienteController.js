@@ -10,46 +10,46 @@ class ClienteController {
 
         //Validar nome.
         if (!req.body.nome) {
-            return res.status(400).json({ error: "Informe o nome do cliente" })
+            return res.status(400).json({ message: "Informe o nome do cliente" })
         }
 
 
         //Validar email
         if (!req.body.email) {
-            return res.status(400).json({ error: "Informe o email" })
+            return res.status(400).json({ message: "Informe o email" })
         }
 
 
         //Validar telefone
         if (!req.body.telefone) {
-            return res.status(400).json({ error: "Informe o telefone" })
+            return res.status(400).json({ message: "Informe o telefone" })
         }
 
         //Validar endereco
         if (!req.body.endereco.logradouro) {
-            return res.status(400).json({ error: "Informe o logradouro" })
+            return res.status(400).json({ message: "Informe o logradouro" })
         }
 
         //Validar cep
         if (!req.body.endereco.cep) {
-            return res.status(400).json({ error: "Informe o cep" })
+            return res.status(400).json({ message: "Informe o cep" })
         }
 
         //Validar cidade
         if (!req.body.endereco.cidade) {
-            return res.status(400).json({ error: "Informe a cidade" })
+            return res.status(400).json({ message: "Informe a cidade" })
         }
 
         //Validar estado
         if (!req.body.endereco.estado) {
-            return res.status(400).json({ error: "Informe a estado" })
+            return res.status(400).json({ message: "Informe a estado" })
         };
 
         if (req.body.documento.numero) {
             const documento = await Cliente.findOne({ documento: { numero: req.body.documento.numero } });
 
             if (documento) {
-                return res.status(400).json({ error: "Cliente ja cadastrado" })
+                return res.status(400).json({ message: "Cliente ja cadastrado" })
             }
         }
 
@@ -60,7 +60,7 @@ class ClienteController {
             return res.json(cliente);
 
         } catch (error) {
-            return res.status(401).json({ 'Error': "Não foi possivél salvar cliente, analise detalhada do erro: " + error });
+            return res.status(401).json({ message: error });
         }
     }
 
@@ -75,27 +75,18 @@ class ClienteController {
 
 
         if (!cliente) {
-            return res.status(400).json({ error: "Cliente não encontrado" });
+            return res.status(400).json({ message: "Cliente não encontrado" });
         }
 
         try {
-            const { nome, email, telefone, endereco, cep, cidade, estado, tipo_atividade, status } = req.body;
-            await Cliente.updateOne({ id }, {
-                nome,
-                email,
-                telefone,
-                endereco,
-                cep,
-                cidade,
-                estado,
-                tipo_atividade,
-                status
-            }, { new: true });
+            const clientes = req.body;
+            // const { nome, email, telefone, endereco, cep, cidade, estado, tipo_atividade, status } = req.body;
+            await Cliente.updateOne({ id }, { clientes }, { new: true });
 
             const result = await Cliente.findOne({ id });
             return res.json({ result });
         } catch (error) {
-            return res.status(400).json({ error: "Não foi possivél modificar cadastro cliente " + error });
+            return res.status(400).json({ message: error });
         }
 
     }
@@ -109,14 +100,14 @@ class ClienteController {
         const cliente = await Cliente.find({ id: cliente_id });
 
         if (!cliente) {
-            return res.status(400).json({ error: "Cliente não encontrado" });
+            return res.status(400).json({ message: "Cliente não encontrado" });
         }
 
         try {
             await Cliente.findByIdAndRemove(req.params.cliente_id)
             return res.json({ msg: "Cliente excluido com sucesso" });
         } catch (error) {
-            return res.status(400).json({ error: "Não foi possivél excluir cliente" });
+            return res.status(400).json({ message: error });
         }
 
     }
@@ -126,7 +117,7 @@ class ClienteController {
     async selected(req, res) {
         const clientes = await Cliente.find();
         if (!clientes) {
-            return res.status(401).json({ error: "Clientes não localizados" });
+            return res.status(401).json({ message: "Clientes não localizados" });
         }
 
         return res.json(clientes);

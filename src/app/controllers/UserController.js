@@ -8,19 +8,19 @@ class UserController {
     async store(req, res) {
 
         if (!req.body.name) {
-            return res.status(401).json({ 'Erro': "Preencha o name" });
+            return res.status(401).json({ message: "Preencha o name" });
         }
 
         if (!req.body.cpf) {
-            return res.status(401).json({ 'Erro': "Preencha o cpf" });
+            return res.status(401).json({ message: "Preencha o cpf" });
         }
 
         if (!req.body.email) {
-            return res.status(401).json({ 'Erro': "Preencha o email" });
+            return res.status(401).json({ message: "Preencha o email" });
         }
 
         if (!req.body.password) {
-            return res.status(401).json({ 'Erro': "Preencha o senha" });
+            return res.status(401).json({ message: "Preencha o senha" });
         }
 
         const schema = Yup.object().shape({
@@ -31,14 +31,14 @@ class UserController {
         });
 
         if (!(await schema.isValid(req.body))) {
-            return res.status(400).json({ error: 'Falha na validação.' });
+            return res.status(400).json({ message: 'Falha na validação.' });
         }
 
         const { cpf } = req.body;
 
         try {
             if (await User.findOne({ cpf }))
-                return res.status(400).json({ error: "Usuario ja cadastrado" })
+                return res.status(400).json({ message: "Usuario ja cadastrado" })
 
             const user = await User.create(req.body)
 
@@ -47,7 +47,7 @@ class UserController {
             return res.json(user);
 
         } catch (error) {
-            return res.status(401).json({ 'Erro': error });
+            return res.status(401).json({ message: error });
         }
     }
 
@@ -76,7 +76,7 @@ class UserController {
 
 
         if (!(await schema.isValid(req.body))) {
-            return res.status(400).json({ error: 'Falha na validação.' });
+            return res.status(400).json({ message: 'Falha na validação.' });
         }
 
         const { cpf, oldPassword } = req.body;
@@ -85,12 +85,12 @@ class UserController {
         const user = await User.findOne({ cpf }).select('+password');
 
         if (!user) {
-            return res.status(400).json({ error: "Usuario não existe" })
+            return res.status(400).json({ message: "Usuario não existe" })
         }
 
 
         if (oldPassword && !(await bcrypt.compare(oldPassword, user.password))) {
-            return res.status(401).json({ error: "Senha incorreta." })
+            return res.status(401).json({ message: "Senha incorreta." })
         }
 
         const userUpdate = await user.update(req.body);
