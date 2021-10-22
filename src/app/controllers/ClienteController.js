@@ -7,49 +7,46 @@ class ClienteController {
     //Criar cliente.
     async store(req, res) {
 
-        const { cliente } = req.body
 
         //Validar nome.
-        if (!cliente.nome) {
+        if (!req.body.nome) {
             return res.status(400).json({ error: "Informe o nome do cliente" })
         }
 
 
         //Validar email
-        if (!cliente.email) {
+        if (!req.body.email) {
             return res.status(400).json({ error: "Informe o email" })
         }
 
 
         //Validar telefone
-        if (!cliente.telefone) {
+        if (!req.body.telefone) {
             return res.status(400).json({ error: "Informe o telefone" })
         }
 
         //Validar endereco
-        if (!cliente.endereco.logradouro) {
+        if (!req.body.endereco.logradouro) {
             return res.status(400).json({ error: "Informe o logradouro" })
         }
 
         //Validar cep
-        if (!cliente.endereco.cep) {
+        if (!req.body.endereco.cep) {
             return res.status(400).json({ error: "Informe o cep" })
         }
 
         //Validar cidade
-        if (!cliente.endereco.cidade) {
+        if (!req.body.endereco.cidade) {
             return res.status(400).json({ error: "Informe a cidade" })
         }
 
         //Validar estado
-        if (!cliente.endereco.estado) {
+        if (!req.body.endereco.estado) {
             return res.status(400).json({ error: "Informe a estado" })
-        }
+        };
 
-        ;
-
-        if (cliente.documento.numero) {
-            const documento = await Cliente.findOne({ documento: { numero: cliente.documento.numero } });
+        if (req.body.documento.numero) {
+            const documento = await Cliente.findOne({ documento: { numero: req.body.documento.numero } });
 
             if (documento) {
                 return res.status(400).json({ error: "Cliente ja cadastrado" })
