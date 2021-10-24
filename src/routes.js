@@ -3,6 +3,7 @@ import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
 import VendedorController from './app/controllers/VendedorController';
 import ClienteController from './app/controllers/ClienteController';
+import ProdutoController from './app/controllers/ProdutoController';
 
 
 const routes = new Router();
@@ -80,6 +81,26 @@ routes.delete('/cliente/:cliente_id', ClienteController.delete);
 
 //Selecionar clientes
 routes.get('/clientes', ClienteController.selected);
+
+
+
+
+//Rota de produto.
+//=================================================
+
+//Cadastro de produto.
+routes.post('/produtos', ProdutoController.store);
+
+//Alterar dados produto.
+routes.put('/produto/:cliente_id', ProdutoController.update);
+
+//Deletar produto.
+routes.delete('/produto/:cliente_id', ProdutoController.delete);
+
+
+//Selecionar produtos
+routes.get('/produtos', ProdutoController.selected);
+
 
 
 export default routes;
