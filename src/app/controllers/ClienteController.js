@@ -71,7 +71,7 @@ class ClienteController {
         const { cliente_id } = req.params;
         const id = cliente_id;
 
-        const cliente = await Cliente.findOne({ id: id });
+        const cliente = await Cliente.findOne({ _id: id });
 
 
         if (!cliente) {
@@ -79,12 +79,30 @@ class ClienteController {
         }
 
         try {
-            // const clientes = req.body;
-            // const { nome, email, telefone, endereco, cep, cidade, estado, tipo_atividade, status } = req.body;
-            const result = await Cliente.updateOne({ id }, { clientes: req.body }, { new: true });
+            const { nome, email, telefone, status } = req.body;
+            const { numero } = req.body.documento;
+            const { logradouro, cep, cidade, estado, bairro, tipo_atividade } = req.body.endereco;
+            await Cliente.updateOne({ _id: id }, {
+                nome,
+                email,
+                telefone,
+                status,
+                tipo_atividade,
+                documento: {
+                    numero: numero
+                },
+                endereco: {
+                    logradouro,
+                    cep,
+                    cidade,
+                    estado,
+                    bairro,
+                    numero: req.body.endereco.numero,
+                }
+            }, { new: true });
 
-            // const result = await Cliente.findOne({ id: id });
-            return res.json({ result });
+            const cliente = await Cliente.findOne({ _id: id });
+            return res.json({ cliente });
         } catch (error) {
             return res.status(400).json({ message: error });
         }
