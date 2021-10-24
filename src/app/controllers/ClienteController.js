@@ -80,7 +80,7 @@ class ClienteController {
 
         try {
             const { nome, email, telefone, status } = req.body;
-            const { numero } = req.body.documento;
+            const { numero, tipo } = req.body.documento;
             const { logradouro, cep, cidade, estado, bairro, tipo_atividade } = req.body.endereco;
             await Cliente.updateOne({ _id: id }, {
                 nome,
@@ -89,6 +89,7 @@ class ClienteController {
                 status,
                 tipo_atividade,
                 documento: {
+                    tipo: tipo,
                     numero: numero
                 },
                 endereco: {
