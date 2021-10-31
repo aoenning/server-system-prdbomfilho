@@ -41,7 +41,7 @@ class ProdutoController {
         const { produto_id } = req.params;
         const id = produto_id;
 
-        const produto = await Cliente.findOne({ _id: id });
+        const produto = await Produto.findOne({ _id: id });
 
 
         if (!produto) {

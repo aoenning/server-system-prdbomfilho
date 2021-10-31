@@ -79,7 +79,7 @@ class UserController {
             return res.status(400).json({ message: 'Falha na validação.' });
         }
 
-        const { cpf, oldPassword } = req.body;
+        const { cpf, oldPassword, password } = req.body;
 
         //selecionando id do usuario.       
         const user = await User.findOne({ cpf }).select('+password');
@@ -88,16 +88,23 @@ class UserController {
             return res.status(400).json({ message: "Usuario não existe" })
         }
 
-
         if (oldPassword && !(await bcrypt.compare(oldPassword, user.password))) {
             return res.status(401).json({ message: "Senha incorreta." })
         }
 
-        const userUpdate = await user.update(req.body);
+        try {
+            user.password = password;
 
-        userUpdate.password = undefined;
+            await user.save();
 
-        return res.json(userUpdate);
+            const userUpdate = await User.findOne({ cpf });
+
+            return res.json(userUpdate);
+        } catch (error) {
+            return res.status(401).json({ message: "Não foi possivél alterar senha" })
+        }
+
+        //https://server-system-prdbomfilho.herokuapp.com"
     }
 
 }
