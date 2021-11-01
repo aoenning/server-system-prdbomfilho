@@ -41,7 +41,7 @@ class ProdutoController {
         const { produto_id } = req.params;
         const id = produto_id;
 
-        const produto = await Produto.findOne({ _id: id });
+        const produto = await Produto.findOne({ id: id });
 
 
         if (!produto) {
@@ -50,16 +50,17 @@ class ProdutoController {
 
         try {
             const { descricao, unidade, preco, status } = req.body;
-            await Produto.updateOne({ _id: id }, {
+            await Produto.updateOne({ id: id }, {
                 descricao,
                 unidade,
                 preco,
                 status,
             }, { new: true });
 
-            const produto = await Produto.findOne({ _id: id });
+            const produto = await Produto.findOne({ id: id });
             return res.json({ produto });
         } catch (error) {
+            console.log(error);
             return res.status(400).json({ message: error });
         }
 
