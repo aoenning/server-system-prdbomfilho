@@ -112,10 +112,10 @@ routes.get('/produtos', ProdutoController.selected);
 routes.post('/pedidos', PedidoController.store);
 
 //Alterar dados pedido.
-routes.put('/pedido/:pedido_id', PedidoController.update);
+routes.put('/pedido/:pedidoId', PedidoController.update);
 
 //Deletar pedido.
-routes.delete('/pedido/:pedido_id', PedidoController.delete);
+routes.delete('/pedido/:pedidoId', PedidoController.delete);
 
 
 //Selecionar pedidos

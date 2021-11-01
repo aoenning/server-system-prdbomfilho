@@ -39,52 +39,56 @@ class PedidoController {
     }
 
     //===========================================================================================================
-    //Alterar dados produto.
+    //Alterar dados pedido.
     async update(req, res) {
 
-        const { produto_id } = req.params;
-        const id = produto_id;
-
-        const produto = await Produto.findOne({ id: id });
-
-
-        if (!produto) {
-            return res.status(400).json({ message: "Produto não encontrado" });
-        }
-
         try {
-            const { descricao, unidade, preco, status } = req.body;
-            await Produto.updateOne({ id: id }, {
-                descricao,
-                unidade,
-                preco,
+
+            const { status, price, pagamento, itensPedido } = req.body;
+            // console.log(req.params.pedidoId);
+            const pedido = await Pedido.findByIdAndUpdate(req.params.pedidoId, {
                 status,
+                price,
+                pagamento: {
+                    tipo: pagamento.tipo,
+                    quantidade: pagamento.quantidade,
+                },
+
             }, { new: true });
 
-            const produto = await Produto.findOne({ id: id });
-            return res.json({ produto });
+            pedido.itens = [];
+            await Itens.remove({ pedido: pedido._id });
+
+            await Promise.all(itensPedido.map(async item => {
+                const it = new Itens({ ...item, pedido: pedido._id });
+                await it.save();
+                pedido.itens.push(it);
+            }))
+
+            await pedido.save();
+
+            return res.json({ pedido });
+
         } catch (error) {
-            console.log(error);
-            return res.status(400).json({ message: error });
+            return res.status(401).json({ message: error });
         }
 
     }
 
 
     //===========================================================================================================
-    //Alterar dados produto.
+    //Alterar dados pedido.
     async delete(req, res) {
-
-        const { produto_id } = req.params;
-        const produto = await Produto.find({ id: produto_id });
-
-        if (!produto) {
-            return res.status(400).json({ message: "Produto não encontrado" });
-        }
-
         try {
-            await Produto.findByIdAndRemove(req.params.produto_id)
-            return res.json({ msg: "Produto excluido com sucesso" });
+
+            const pedido = await Pedido.findById(req.params.pedidoId);
+
+            if (!pedido) {
+                return res.status(400).json({ message: "Pedido não encontrado" });
+            }
+
+            await Pedido.findByIdAndRemove(req.params.pedidoId);
+            return res.json({ message: "Pedidos excluido com sucesso" });
         } catch (error) {
             return res.status(400).json({ message: error });
         }
