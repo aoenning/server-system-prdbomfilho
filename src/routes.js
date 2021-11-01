@@ -4,6 +4,7 @@ import SessionController from './app/controllers/SessionController';
 import VendedorController from './app/controllers/VendedorController';
 import ClienteController from './app/controllers/ClienteController';
 import ProdutoController from './app/controllers/ProdutoController';
+import PedidoController from './app/controllers/PedidoController';
 
 
 const routes = new Router();
@@ -92,14 +93,37 @@ routes.get('/clientes', ClienteController.selected);
 routes.post('/produtos', ProdutoController.store);
 
 //Alterar dados produto.
-routes.put('/produto/:cliente_id', ProdutoController.update);
+routes.put('/produto/:produto_id', ProdutoController.update);
 
 //Deletar produto.
-routes.delete('/produto/:cliente_id', ProdutoController.delete);
+routes.delete('/produto/:produto_id', ProdutoController.delete);
 
 
 //Selecionar produtos
 routes.get('/produtos', ProdutoController.selected);
+
+
+
+
+//Rota de pedido.
+//=================================================
+
+//Cadastro de pedido.
+routes.post('/pedidos', PedidoController.store);
+
+//Alterar dados pedido.
+routes.put('/pedido/:pedido_id', PedidoController.update);
+
+//Deletar pedido.
+routes.delete('/pedido/:pedido_id', PedidoController.delete);
+
+
+//Selecionar pedidos
+routes.get('/pedidos', PedidoController.selected);
+
+
+//Alterar dados pedido.
+routes.get('/pedido/:pedidoId', PedidoController.selectedItem);
 
 
 

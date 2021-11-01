@@ -27,6 +27,11 @@ const PedidosSchema = new Schema({
         }
     },
 
+    price: {
+        type: String,
+        required: true,
+    },
+
     status: {
         type: String
     },
@@ -40,6 +45,11 @@ const PedidosSchema = new Schema({
         type: Date,
         default: Date.now,
     },
+
+    itens: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Itens',
+    }]
 
 });
 

@@ -4,10 +4,15 @@ import bcrypt from 'bcryptjs';
 import { number } from 'yup/lib/locale';
 
 
-const ItensPedidoSchema = new Schema({
+const ItensSchema = new Schema({
+    pedido: {
+        type: Schema.Types.ObjectId,
+        ref: 'Pedido',
+        required: true,
+    },
     id_material: {
         type: Schema.Types.ObjectId,
-        ref: 'produto',
+        ref: 'Produto',
         required: true,
     },
 
@@ -53,4 +58,4 @@ const ItensPedidoSchema = new Schema({
 });
 
 
-export default model('itensPedido', ItensPedidoSchema);
+export default model('Itens', ItensSchema);
