@@ -17,6 +17,7 @@
     "jsonwebtoken": "^8.5.1",
     "middlewares": "^0.1.1",
     "mongoose": "^6.0.9",
+    "node": "^17.0.1",
     "nodemon": "^2.0.14",
     "npm": "^8.0.0",
     "sucrase": "^3.20.1",
