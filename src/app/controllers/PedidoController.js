@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import Pedido from '../models/Pedido';
+import Pedido from '../models/Pedidos';
 import Itens from '../models/Itens';
 
 

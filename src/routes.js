@@ -48,25 +48,6 @@ routes.put('/users', UserController.updateUser);
 // routes.get('/produtos', ProdutosController.selectedProdutos);
 
 
-
-//Rota de vendedores.
-//=================================================
-
-//Cadastro de vendedor.
-routes.post('/vendedor', VendedorController.store);
-
-//Alterar dados vendedores.
-routes.put('/vendedor/:vendedor_id', VendedorController.update);
-
-//Deletar vendedor.
-routes.delete('/vendedor/:vendedor_id', VendedorController.delete);
-
-//Selecionar vendedores
-routes.get('/vendedores', VendedorController.selected);
-
-
-
-
 //Rota de cliente.
 //=================================================
 
