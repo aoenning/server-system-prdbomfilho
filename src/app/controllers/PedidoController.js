@@ -70,7 +70,7 @@ class PedidoController {
             return res.json({ pedido });
 
         } catch (error) {
-            return res.status(401).json({ message: error });
+            return res.status(401).json({ message: 'Não foi possivél realizar alteração' });
         }
 
     }
