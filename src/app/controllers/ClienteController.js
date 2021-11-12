@@ -2,6 +2,7 @@ import * as Yup from 'yup';
 import Cliente from '../models/Cliente';
 
 
+
 class ClienteController {
     //===================================================================================================    
     //Criar cliente.

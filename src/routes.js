@@ -5,12 +5,18 @@ import VendedorController from './app/controllers/VendedorController';
 import ClienteController from './app/controllers/ClienteController';
 import ProdutoController from './app/controllers/ProdutoController';
 import PedidoController from './app/controllers/PedidoController';
+import UploadController from './app/controllers/UploadController';
+import multerConfig from './config/multer';
+import uploadImagem from './../src/app/services/firebase';
+import multer from 'multer';
+
+const Multer = multer({
+    storage: multer.memoryStorage(),
+    limits: 2 * 1024 * 1024,
+});
 
 
 const routes = new Router();
-
-
-
 
 
 //Rota de usuarios.
@@ -84,6 +90,8 @@ routes.delete('/produto/:produto_id', ProdutoController.delete);
 routes.get('/produtos', ProdutoController.selected);
 
 
+routes.post('/upload', multer(Multer).single('file'), uploadImagem, UploadController.store);
+// routes.post('/upload', UploadController.store);
 
 
 //Rota de pedido.
