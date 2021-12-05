@@ -8,25 +8,38 @@ class ProdutoController {
     async store(req, res) {
 
         //Validar descricao.
-        if (!req.body.descricao) {
-            return res.status(400).json({ message: "Informe a descricao" })
-        }
+        // if (!req.body.descricao) {
+        //     return res.status(400).json({ message: "Informe a descricao" })
+        // }
 
 
-        //Validar unidade
-        if (!req.body.unidade) {
-            return res.status(400).json({ message: "Informe a unidade" })
-        }
+        // //Validar unidade
+        // if (!req.body.unidade) {
+        //     return res.status(400).json({ message: "Informe a unidade" })
+        // }
 
 
-        //Validar preco
-        if (!req.body.preco) {
-            return res.status(400).json({ message: "Informe o preco" })
-        }
+        // //Validar preco
+        // if (!req.body.preco) {
+        //     return res.status(400).json({ message: "Informe o preco" })
+        // }
 
         try {
 
-            const produto = await Produto.create(req.body);
+            const { firebaseUrl } = req.file ? req.file : "";
+            const { descricao, unidade, preco } = req.body;
+            console.log(descricao, unidade, preco);
+            const produto = await Produto.create({
+                descricao,
+                unidade,
+                preco,
+                image: {
+                    name: req.file.originalname,
+                    size: req.file.size,
+                    key: req.file.filename,
+                    url: firebaseUrl,
+                }
+            });
             return res.json(produto);
 
         } catch (error) {

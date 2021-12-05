@@ -16,6 +16,10 @@ const ItensSchema = new Schema({
         required: true,
     },
 
+    image: {
+        type: String,
+    },
+
     descricao_material: {
         type: String,
         required: true,

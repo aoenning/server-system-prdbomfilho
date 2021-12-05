@@ -23,6 +23,13 @@ const ProdutosSchema = new Schema({
         type: String
     },
 
+    image: {
+        name: { type: String },
+        size: { type: String },
+        key: { type: String },
+        url: { type: String, required: true },
+    },
+
     created_at: {
         type: Date,
         default: Date.now,

@@ -77,7 +77,7 @@ routes.get('/clientes', ClienteController.selected);
 //=================================================
 
 //Cadastro de produto.
-routes.post('/produtos', ProdutoController.store);
+routes.post('/produtos', multer(Multer).single('file'), uploadImagem, ProdutoController.store);
 
 //Alterar dados produto.
 routes.put('/produto/:produto_id', ProdutoController.update);
