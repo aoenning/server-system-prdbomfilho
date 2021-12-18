@@ -10,11 +10,13 @@ class PedidoController {
 
         try {
 
-            const { cliente, vendedor, status, price, pagamento, itensPedido } = req.body;
+            const { id_cliente, cliente, id_vendedor, vendedor, status, price, pagamento, itensPedido } = req.body;
             const pedido = await Pedido.create({
                 status,
                 price,
+                id_cliente: id_cliente,
                 cliente: cliente,
+                id_vendedor: id_vendedor,
                 vendedor: vendedor,
                 pagamento: {
                     tipo: pagamento.tipo,
@@ -34,7 +36,7 @@ class PedidoController {
             return res.json({ pedido });
 
         } catch (error) {
-            return res.status(401).json({ message: error });
+            return res.status(401).json({ message: 'Não foi possivél salvar o pedido, verifique as informações' });
         }
     }
 

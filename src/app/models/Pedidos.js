@@ -4,15 +4,25 @@ import bcrypt from 'bcryptjs';
 
 
 const PedidosSchema = new Schema({
-    cliente: {
+    id_cliente: {
         type: Schema.Types.ObjectId,
         ref: 'Cliente',
         required: true,
     },
 
-    vendedor: {
+    cliente: {
+        type: String,
+        required: true,
+    },
+
+    id_vendedor: {
         type: Schema.Types.ObjectId,
         ref: 'User',
+        required: true,
+    },
+
+    vendedor: {
+        type: String,
         required: true,
     },
 

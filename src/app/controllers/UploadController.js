@@ -11,7 +11,7 @@ class UploadController {
     //===================================================================================================    
     //Criar produto.
     async store(req, res) {
-
+        // console.log(req.file);
         try {
             const { firebaseUrl } = req.file ? req.file : "";
 

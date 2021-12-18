@@ -66,11 +66,11 @@ routes.put('/cliente/:cliente_id', ClienteController.update);
 //Deletar cliente.
 routes.delete('/cliente/:cliente_id', ClienteController.delete);
 
-
 //Selecionar clientes
 routes.get('/clientes', ClienteController.selected);
 
-
+//Selecionar clientes
+routes.get('/cliente/:cliente_id', ClienteController.selectedCliente);
 
 
 //Rota de produto.

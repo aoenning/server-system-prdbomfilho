@@ -6,7 +6,7 @@ class ProdutoController {
     //===================================================================================================    
     //Criar produto.
     async store(req, res) {
-
+        console.log(req.body);
         //Validar descricao.
         // if (!req.body.descricao) {
         //     return res.status(400).json({ message: "Informe a descricao" })
@@ -28,7 +28,7 @@ class ProdutoController {
 
             const { firebaseUrl } = req.file ? req.file : "";
             const { descricao, unidade, preco } = req.body;
-            console.log(descricao, unidade, preco);
+
             const produto = await Produto.create({
                 descricao,
                 unidade,
@@ -43,7 +43,7 @@ class ProdutoController {
             return res.json(produto);
 
         } catch (error) {
-            return res.status(401).json({ message: error });
+            return res.status(400).json({ message: 'Não foi possivél cadastrar o produto.' + error.message });
         }
     }
 
