@@ -7,7 +7,7 @@ class PedidoController {
     //===================================================================================================    
     //Criar pedido.
     async store(req, res) {
-
+        console.log(req.body);
         try {
 
             const { id_cliente, cliente, id_vendedor, vendedor, status, price, pagamento, itensPedido } = req.body;
@@ -117,7 +117,7 @@ class PedidoController {
         const id = pedidoId;
 
         try {
-            const pedido = await Pedido.findById(pedidoId).populate(['itens']);
+            const pedido = await Pedido.findById(id).populate(['itens']);
 
             if (!pedido) {
                 return res.status(401).json({ message: "Pedido não localizado" });
