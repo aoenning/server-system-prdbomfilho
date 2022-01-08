@@ -146,7 +146,7 @@ class ClienteController {
     //Selecionar clientes.
     async selectedCliente(req, res) {
         const { cliente_id } = req.params;
-        const cliente = await Cliente.findOne({ id: cliente_id });
+        const cliente = await Cliente.find({ id: cliente_id });
         if (!cliente) {
             return res.status(401).json({ message: "Clienteo localizado" });
         }
