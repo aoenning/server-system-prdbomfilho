@@ -46,16 +46,10 @@ class PedidoController {
 
         try {
 
-            const { status, price, pagamento, itensPedido } = req.body;
+            const { status, itensPedido } = req.body;
             // console.log(req.params.pedidoId);
             const pedido = await Pedido.findByIdAndUpdate(req.params.pedidoId, {
                 status,
-                price,
-                pagamento: {
-                    tipo: pagamento.tipo,
-                    quantidade: pagamento.quantidade,
-                },
-
             }, { new: true });
 
             pedido.itens = [];
